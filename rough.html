@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Timer</h1>
+    <div class="container">
+        <span id="min">00</span>:
+        <span id="sec">00</span>:
+        <span id="milli">00</span>
+
+    </div>
+    <button id="start">Start</button>
+    <button id="pause">Pause</button>
+    <button id="reset">Reset</button>
+</body>
+ <script>
+    //alert("hello");
+    const minLabel =document.getElementById('min');
+    const secLabel =document.getElementById('sec');
+    const milliLabel =document.getElementById('milli');
+    const startBtn =document.getElementById('start');
+    const pauseBtn=document.getElementById('pause');
+    const resetBtn=document.getElementById('reset');
+    let minute=0;
+    let seconds=0;
+    let millisec=0;
+    let interval;
+    startBtn.addEventListener('click',start);
+    pauseBtn.addEventListener('click',pauseTimer);
+    resetBtn.addEventListener('click',resetTimer);
+    function start() {
+        interval =setInterval(timer,10);
+        startBtn.disabled=true;
+        pauseBtn.disabled=false;
+        //updateTimer;
+    }
+    function timer() {
+        millisec++;
+        if(millisec===100)
+        {
+            millisec=0;
+            seconds++;
+            if(seconds===60)
+            {
+                seconds=0;
+                minute++;
+            }
+        }
+        updateTimer();
+        console.log(interval);
+    }
+    function updateTimer() {
+        minLabel.textContent=minute;
+        secLabel.textContent=seconds;
+        milliLabel.textContent=millisec;
+
+    }
+    function pauseTimer() {
+        clearInterval(interval);
+        startBtn.disabled=false;
+        pauseBtn.disabled=true;
+    }
+    function resetTimer()
+    {
+        minute=0;
+        seconds=0;
+        millisec=0;
+        updateTimer();
+    }
+
+ </script>
+
+</html>
